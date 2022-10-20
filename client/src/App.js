@@ -1,6 +1,8 @@
 import * as React from 'react';
 import Map from 'react-map-gl';
 
+import { listLogEntries } from './API';
+
 const App = () => {
   const [viewState, setViewState] = React.useState({
     longitude: -74.006,
@@ -9,7 +11,12 @@ const App = () => {
   });
 
   // Make request to backend here
-  React.useEffect(() => {}, []);
+  React.useEffect(() => {
+    (async () => {
+      const logEntries = await listLogEntries();
+      console.log(logEntries);
+    })();
+  }, []);
 
   return (
     <Map
