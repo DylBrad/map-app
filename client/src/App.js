@@ -1,10 +1,11 @@
 import * as React from 'react';
-import Map, { Marker } from 'react-map-gl';
+import Map, { Marker, Popup } from 'react-map-gl';
 
 import { listLogEntries } from './API';
 
 const App = () => {
   const [logEntries, setLogEntries] = React.useState([]);
+  const [popupInfo, setPopupInfo] = React.useState(null);
   const [viewState, setViewState] = React.useState({
     longitude: -74.006,
     latitude: 40.7128,
@@ -16,6 +17,7 @@ const App = () => {
     (async () => {
       const logEntries = await listLogEntries();
       setLogEntries(logEntries);
+      console.log(logEntries);
     })();
   }, []);
 
@@ -29,13 +31,39 @@ const App = () => {
     >
       {logEntries.map((entry) => {
         return (
-          <Marker
-            key={entry._id}
-            longitude={entry.longitude}
-            latitude={entry.latitude}
-          ></Marker>
+          <div>
+            <Marker
+              key={entry._id}
+              longitude={entry.longitude}
+              latitude={entry.latitude}
+              onClick={(e) => {
+                // If we let the click event propagates to the map, it will immediately close the popup
+                // with `closeOnClick: true`
+                e.originalEvent.stopPropagation();
+                setPopupInfo(entry);
+              }}
+            ></Marker>
+          </div>
         );
       })}
+      {popupInfo && (
+        <Popup
+          longitude={popupInfo.longitude}
+          latitude={popupInfo.latitude}
+          anchor="bottom"
+          onClose={() => setPopupInfo(null)}
+        >
+          <div>
+            <img
+              className="popup-image"
+              alt="location"
+              src={popupInfo.image}
+            ></img>
+            <h3>{popupInfo.title}</h3>
+            <p>{popupInfo.comments}</p>
+          </div>
+        </Popup>
+      )}
     </Map>
   );
 };
