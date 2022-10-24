@@ -6,6 +6,7 @@ import { listLogEntries } from './API';
 const App = () => {
   const [logEntries, setLogEntries] = React.useState([]);
   const [popupInfo, setPopupInfo] = React.useState(null);
+  const [newEntryLocation, setNewEntryLocation] = React.useState(null);
   const [viewState, setViewState] = React.useState({
     longitude: -74.006,
     latitude: 40.7128,
@@ -17,9 +18,15 @@ const App = () => {
     (async () => {
       const logEntries = await listLogEntries();
       setLogEntries(logEntries);
-      console.log(logEntries);
     })();
   }, []);
+
+  const showAddMarkerPopup = (e) => {
+    setNewEntryLocation({
+      latitude: e.lngLat.lat,
+      longitude: e.lngLat.lng,
+    });
+  };
 
   return (
     <Map
@@ -28,6 +35,7 @@ const App = () => {
       style={{ width: '100vw', height: '100vh' }}
       onMove={(evt) => setViewState(evt.viewState)}
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
+      onClick={showAddMarkerPopup}
     >
       {logEntries.map((entry) => {
         return (
@@ -64,6 +72,20 @@ const App = () => {
           </div>
         </Popup>
       )}
+      {newEntryLocation ? (
+        <>
+          <Popup
+            longitude={newEntryLocation.longitude}
+            latitude={newEntryLocation.latitude}
+            anchor="bottom"
+            onClose={() => setNewEntryLocation(null)}
+          >
+            <div>
+              <h3>Add New Entry</h3>
+            </div>
+          </Popup>
+        </>
+      ) : null}
     </Map>
   );
 };
