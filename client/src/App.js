@@ -3,6 +3,8 @@ import Map, { Marker, Popup } from 'react-map-gl';
 
 import { listLogEntries } from './API';
 
+import NewEntryForm from './components/NewEntryForm';
+
 const App = () => {
   const [logEntries, setLogEntries] = React.useState([]);
   const [popupInfo, setPopupInfo] = React.useState(null);
@@ -18,6 +20,7 @@ const App = () => {
     (async () => {
       const logEntries = await listLogEntries();
       setLogEntries(logEntries);
+      console.log(logEntries);
     })();
   }, []);
 
@@ -81,7 +84,7 @@ const App = () => {
             onClose={() => setNewEntryLocation(null)}
           >
             <div>
-              <h3>Add New Entry</h3>
+              <NewEntryForm />
             </div>
           </Popup>
         </>

@@ -12,3 +12,11 @@ body {
   max-width: 200px;
   height: auto;
 }
+
+.entry-form {
+  display: flex;
+  flex-direction: column;
+}
+.entry-form button {
+  margin-top: 1rem;
+}
