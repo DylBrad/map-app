@@ -3,17 +3,24 @@ import { useForm } from 'react-hook-form';
 import { createLogEntry } from '../API';
 
 const NewEntryForm = (props) => {
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState('');
+
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     try {
+      setLoading(true);
       data.latitude = props.location.latitude;
       data.longitude = props.location.longitude;
       const created = await createLogEntry(data);
       console.log(created);
+      props.onClose();
     } catch (error) {
       console.error(error);
+      setError(error.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -29,7 +36,10 @@ const NewEntryForm = (props) => {
       />
       <label htmlFor="image">Image</label>
       <input {...register('image')} required />
-      <button>Submit</button>
+      <button disabled={loading}>
+        {loading ? 'Posting...' : 'Create Post'}
+      </button>
+      {error ? <h3 className="error">{error}</h3> : null}
     </form>
   );
 };

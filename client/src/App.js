@@ -16,12 +16,13 @@ const App = () => {
   });
 
   // Make request to backend here
+  const getAllMarkers = async () => {
+    const logEntries = await listLogEntries();
+    setLogEntries(logEntries);
+  };
+
   React.useEffect(() => {
-    (async () => {
-      const logEntries = await listLogEntries();
-      setLogEntries(logEntries);
-      console.log(logEntries);
-    })();
+    getAllMarkers();
   }, []);
 
   const showAddMarkerPopup = (e) => {
@@ -84,7 +85,13 @@ const App = () => {
             onClose={() => setNewEntryLocation(null)}
           >
             <div>
-              <NewEntryForm location={newEntryLocation} />
+              <NewEntryForm
+                onClose={() => {
+                  setNewEntryLocation(null);
+                  getAllMarkers();
+                }}
+                location={newEntryLocation}
+              />
             </div>
           </Popup>
         </>

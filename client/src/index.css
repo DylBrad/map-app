@@ -20,3 +20,6 @@ body {
 .entry-form button {
   margin-top: 1rem;
 }
+.error {
+  color: red;
+}
