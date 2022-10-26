@@ -84,7 +84,7 @@ const App = () => {
             onClose={() => setNewEntryLocation(null)}
           >
             <div>
-              <NewEntryForm />
+              <NewEntryForm location={newEntryLocation} />
             </div>
           </Popup>
         </>
