@@ -1,9 +1,9 @@
-import * as React from 'react';
-import Map, { Marker, Popup } from 'react-map-gl';
+import * as React from "react";
+import Map, { Marker, Popup } from "react-map-gl";
 
-import { listLogEntries } from '../API';
+import { listLogEntries } from "../API";
 
-import NewEntryForm from './NewEntryForm';
+import NewEntryForm from "./NewEntryForm";
 
 const MapDisplay = () => {
   const [logEntries, setLogEntries] = React.useState([]);
@@ -14,6 +14,13 @@ const MapDisplay = () => {
     latitude: 40.7128,
     zoom: 11,
   });
+
+  // login stuff
+  const authToken = false;
+
+  const handleClick = () => {
+    console.log("clicked");
+  };
 
   // Make request to backend here
   const getAllMarkers = async () => {
@@ -36,11 +43,14 @@ const MapDisplay = () => {
     <Map
       {...viewState}
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ width: "100vw", height: "100vh" }}
       onMove={(evt) => setViewState(evt.viewState)}
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
       onClick={showAddMarkerPopup}
     >
+      <button className="primary-button" onClick={handleClick}>
+        {authToken ? "Sign Out" : "Create Account"}
+      </button>
       {logEntries.map((entry) => {
         return (
           <div>
@@ -98,7 +108,6 @@ const MapDisplay = () => {
       ) : null}
     </Map>
   );
-}; 
+};
 
 export default MapDisplay;
-
