@@ -4,6 +4,7 @@ import Map, { Marker, Popup } from "react-map-gl";
 import { listLogEntries } from "../API";
 
 import NewEntryForm from "./NewEntryForm";
+import AuthModal from "./AuthModal/AuthModal";
 
 const MapDisplay = () => {
   const [logEntries, setLogEntries] = React.useState([]);
@@ -16,9 +17,11 @@ const MapDisplay = () => {
   });
 
   // login stuff
+  const [showAuthModal, setShowAuthModal] = React.useState(false);
   const authToken = false;
 
   const handleClick = () => {
+    setShowAuthModal(true);
     console.log("clicked");
   };
 
@@ -51,6 +54,7 @@ const MapDisplay = () => {
       <button className="primary-button" onClick={handleClick}>
         {authToken ? "Sign Out" : "Create Account"}
       </button>
+      {showAuthModal && <AuthModal setShowAuthModal={setShowAuthModal} />}
       {logEntries.map((entry) => {
         return (
           <div>
