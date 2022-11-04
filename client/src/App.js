@@ -2,20 +2,18 @@ import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import MapDisplay from "./components/MapDisplay";
-import Login from "./components/Login/Login";
+import OnBoarding from "./components/OnBoarding/OnBoarding";
+import Profile from "./components/Profile/Profile";
 
 const App = () => {
-  const [token, setToken] = React.useState();
-
-  if (!token) {
-    return <Login token={setToken} />
-  }
 
   return (
     <>
     <BrowserRouter>
       <Routes>
-        <Route path="/mapdisplay" element={<MapDisplay />} />
+        <Route path="/" element={<MapDisplay />} />
+        <Route path="/onboarding" element={<OnBoarding />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
     </>
