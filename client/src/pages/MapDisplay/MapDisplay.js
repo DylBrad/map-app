@@ -1,11 +1,11 @@
 import * as React from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 
-import { listLogEntries } from '../API';
+import { listLogEntries } from '../../API';
 
-import NewEntryForm from './NewEntryForm';
-import AuthModal from './AuthModal/AuthModal';
-import LoginButton from './LoginButton/LoginButton';
+import NewEntryForm from '../../components/NewEntryForm';
+import AuthModal from '../../components/AuthModal/AuthModal';
+import LoginButton from '../../components/LoginButton/LoginButton';
 
 const MapDisplay = () => {
   const [logEntries, setLogEntries] = React.useState([]);
