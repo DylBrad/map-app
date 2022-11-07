@@ -1,10 +1,11 @@
-import * as React from "react";
-import Map, { Marker, Popup } from "react-map-gl";
+import * as React from 'react';
+import Map, { Marker, Popup } from 'react-map-gl';
 
-import { listLogEntries } from "../API";
+import { listLogEntries } from '../API';
 
-import NewEntryForm from "./NewEntryForm";
-import AuthModal from "./AuthModal/AuthModal";
+import NewEntryForm from './NewEntryForm';
+import AuthModal from './AuthModal/AuthModal';
+import LoginButton from './LoginButton/LoginButton';
 
 const MapDisplay = () => {
   const [logEntries, setLogEntries] = React.useState([]);
@@ -18,11 +19,12 @@ const MapDisplay = () => {
 
   // login stuff
   const [showAuthModal, setShowAuthModal] = React.useState(false);
+  const [isSignUp, setIsSignUp] = React.useState(true);
   const authToken = false;
 
   const handleClick = () => {
     setShowAuthModal(true);
-    console.log("clicked");
+    setIsSignUp(true);
   };
 
   // Make request to backend here
@@ -46,15 +48,24 @@ const MapDisplay = () => {
     <Map
       {...viewState}
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-      style={{ width: "100vw", height: "100vh" }}
+      style={{ width: '100vw', height: '100vh' }}
       onMove={(evt) => setViewState(evt.viewState)}
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
       onClick={showAddMarkerPopup}
     >
       <button className="primary-button" onClick={handleClick}>
-        {authToken ? "Sign Out" : "Create Account"}
+        {authToken ? 'Sign Out' : 'Create Account'}
       </button>
-      {showAuthModal && <AuthModal setShowAuthModal={setShowAuthModal} />}
+      {!authToken && (
+        <LoginButton
+          setShowAuthModal={setShowAuthModal}
+          setIsSignUp={setIsSignUp}
+        />
+      )}
+
+      {showAuthModal && (
+        <AuthModal setShowAuthModal={setShowAuthModal} isSignUp={isSignUp} />
+      )}
       {logEntries.map((entry) => {
         return (
           <div>
