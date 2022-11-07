@@ -5,7 +5,7 @@ import { listLogEntries } from '../../API';
 
 import NewEntryForm from '../../components/NewEntryForm';
 import AuthModal from '../../components/AuthModal/AuthModal';
-import LoginButton from '../../components/LoginButton/LoginButton';
+import Nav from '../../components/Nav/Nav';
 
 const MapDisplay = () => {
   const [logEntries, setLogEntries] = React.useState([]);
@@ -21,11 +21,6 @@ const MapDisplay = () => {
   const [showAuthModal, setShowAuthModal] = React.useState(false);
   const [isSignUp, setIsSignUp] = React.useState(true);
   const authToken = false;
-
-  const handleClick = () => {
-    setShowAuthModal(true);
-    setIsSignUp(true);
-  };
 
   // Make request to backend here
   const getAllMarkers = async () => {
@@ -53,15 +48,11 @@ const MapDisplay = () => {
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
       onClick={showAddMarkerPopup}
     >
-      <button className="primary-button" onClick={handleClick}>
-        {authToken ? 'Sign Out' : 'Create Account'}
-      </button>
-      {!authToken && (
-        <LoginButton
-          setShowAuthModal={setShowAuthModal}
-          setIsSignUp={setIsSignUp}
-        />
-      )}
+      <Nav
+        authToken={authToken}
+        setIsSignUp={setIsSignUp}
+        setShowAuthModal={setShowAuthModal}
+      />
 
       {showAuthModal && (
         <AuthModal setShowAuthModal={setShowAuthModal} isSignUp={isSignUp} />
