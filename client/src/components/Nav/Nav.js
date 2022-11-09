@@ -1,6 +1,8 @@
 import * as React from 'react';
 
 const Nav = (props) => {
+  const authToken = false;
+
   const handleSignUp = () => {
     props.setShowAuthModal(true);
     props.setIsSignUp(true);
@@ -13,16 +15,14 @@ const Nav = (props) => {
 
   return (
     <nav>
-      <button className="primary-button" onClick={handleSignUp}>
-        {props.authToken ? 'Sign Out' : 'Create Account'}
-      </button>
+      {!props.authToken && (
+        <button className="primary-button" onClick={handleSignUp}>
+          {authToken ? 'Sign Out' : 'Create Account'}
+        </button>
+      )}
 
       {!props.authToken && (
-        <button
-          className="primary-button"
-          onClick={handleLogIn}
-          disabled={props.showAuthModal}
-        >
+        <button className="primary-button" onClick={handleLogIn}>
           Log In
         </button>
       )}

@@ -20,7 +20,6 @@ const MapDisplay = () => {
   // login stuff
   const [showAuthModal, setShowAuthModal] = React.useState(false);
   const [isSignUp, setIsSignUp] = React.useState(true);
-  const authToken = false;
 
   // Make request to backend here
   const getAllMarkers = async () => {
@@ -48,11 +47,7 @@ const MapDisplay = () => {
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
       onClick={showAddMarkerPopup}
     >
-      <Nav
-        authToken={authToken}
-        setIsSignUp={setIsSignUp}
-        setShowAuthModal={setShowAuthModal}
-      />
+      <Nav setIsSignUp={setIsSignUp} setShowAuthModal={setShowAuthModal} />
 
       {showAuthModal && (
         <AuthModal setShowAuthModal={setShowAuthModal} isSignUp={isSignUp} />
