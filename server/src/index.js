@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const { notFound, errorHandler } = require('./middlewares');
 require('dotenv').config();
 const logs = require('./api/logs');
+const users = require('./api/users');
 
 const app = express();
 
@@ -34,7 +35,11 @@ app.get('/', (req, res) => {
   });
 });
 
+// marker routes here
 app.use('/api/logs', logs);
+
+// user routes here
+app.use('/api/users', users);
 
 app.use(notFound);
 app.use(errorHandler);
