@@ -2,7 +2,6 @@ import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import MapDisplay from './pages/MapDisplay/MapDisplay';
-import OnBoarding from './pages/OnBoarding/OnBoarding';
 import Profile from './pages/Profile/Profile';
 
 const App = () => {
@@ -11,7 +10,6 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MapDisplay />} />
-          <Route path="/onboarding" element={<OnBoarding />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
