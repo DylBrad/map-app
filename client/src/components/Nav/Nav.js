@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useCookies } from 'react-cookie';
 
 const Nav = (props) => {
-  const authToken = false;
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+  const authToken = cookies.token;
 
   const handleSignUp = () => {
     props.setShowAuthModal(true);
@@ -13,15 +15,25 @@ const Nav = (props) => {
     props.setIsSignUp(false);
   };
 
+  const handleLogOut = () => {
+    console.log('log me out');
+    removeCookie('token', cookies.token);
+    window.location.reload(false);
+  };
+
   return (
     <nav>
-      {!props.authToken && (
+      {authToken ? (
+        <button className="primary-button" onClick={handleLogOut}>
+          Sign Out
+        </button>
+      ) : (
         <button className="primary-button" onClick={handleSignUp}>
-          {authToken ? 'Sign Out' : 'Create Account'}
+          Create Account
         </button>
       )}
 
-      {!props.authToken && (
+      {!authToken && (
         <button className="primary-button" onClick={handleLogIn}>
           Log In
         </button>

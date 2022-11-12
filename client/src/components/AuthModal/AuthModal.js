@@ -1,35 +1,50 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
-import { createUser } from '../../API';
+import { useCookies } from 'react-cookie';
+import { createUser, loginUser } from '../../API';
 
 const AuthModal = (props) => {
-  // const [username, setUsername] = React.useState(null);
-  // const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const [confirmPassword, setConfirmPassword] = React.useState(null);
   const [error, setError] = React.useState(null);
-  const [loading, setLoading] = React.useState(false);
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
   const { register, handleSubmit } = useForm();
 
   const handleClick = () => {
     props.setShowAuthModal(false);
-    console.log('auth closed clicked');
   };
 
   const onSubmit = async (data) => {
     try {
-      setLoading(true);
       if (props.isSignUp && password !== confirmPassword) {
         setError('Passwords do not match.');
         return;
       }
-      const created = await createUser(data);
-      console.log(created);
+
+      if (props.isSignUp) {
+        const created = await createUser(data);
+
+        console.log('From Authmodal:', created);
+
+        setCookie('token', created.token);
+
+        props.setIsSignUp(false);
+        props.setShowAuthModal(false);
+        window.location.reload(false);
+      }
+
+      if (!props.isSignUp) {
+        const loggedIn = await loginUser(data);
+
+        setCookie('token', loggedIn.token);
+
+        props.setShowAuthModal(false);
+        window.location.reload(false);
+      }
     } catch (error) {
       console.log(error);
     }
-    setLoading(false);
   };
 
   return (
@@ -37,11 +52,15 @@ const AuthModal = (props) => {
       <div className="close-icon" onClick={handleClick}>
         ✖
       </div>
-      <h2>{props.isSignUp ? 'Create Account' : 'Log In'}</h2>
+      <h2>{props.isSignUp ? 'Create Account' : 'Please Log In'}</h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="entry-form">
-        <label htmlFor="username">Username</label>
-        <input {...register('username')} required />
+        {props.isSignUp && (
+          <>
+            <label htmlFor="username">Username</label>
+            <input {...register('username')} required />
+          </>
+        )}
 
         <label htmlFor="email">Email</label>
         <input type="email" {...register('email')} required />
@@ -68,9 +87,7 @@ const AuthModal = (props) => {
           </>
         )}
 
-        <button disabled={loading}>
-          {loading ? 'Posting...' : 'Create Account'}
-        </button>
+        <button>{props.isSignUp ? 'Create Account' : 'Log in'}</button>
         {error ? <h3 className="error">{error}</h3> : null}
       </form>
     </div>
