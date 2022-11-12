@@ -7,6 +7,7 @@ const { notFound, errorHandler } = require('./middlewares');
 require('dotenv').config();
 const logs = require('./api/logs');
 const users = require('./api/users');
+const login = require('./api/login');
 
 const app = express();
 
@@ -40,6 +41,9 @@ app.use('/api/logs', logs);
 
 // user routes here
 app.use('/api/users', users);
+
+// login routes
+app.use('/api/login', login);
 
 app.use(notFound);
 app.use(errorHandler);

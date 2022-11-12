@@ -27,3 +27,14 @@ export async function createUser(user) {
   console.log('response is', response.json);
   return response.json();
 }
+
+export async function loginUser(user) {
+  const response = await fetch(`${API_URL}/api/login`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+  return response.json();
+}

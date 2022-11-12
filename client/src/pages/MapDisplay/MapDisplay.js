@@ -50,7 +50,11 @@ const MapDisplay = () => {
       <Nav setIsSignUp={setIsSignUp} setShowAuthModal={setShowAuthModal} />
 
       {showAuthModal && (
-        <AuthModal setShowAuthModal={setShowAuthModal} isSignUp={isSignUp} />
+        <AuthModal
+          setShowAuthModal={setShowAuthModal}
+          isSignUp={isSignUp}
+          setIsSignUp={setIsSignUp}
+        />
       )}
       {logEntries.map((entry) => {
         return (
