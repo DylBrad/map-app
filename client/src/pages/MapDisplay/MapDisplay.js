@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
+import { useCookies } from 'react-cookie';
 
 import { listLogEntries } from '../../API';
 
@@ -20,6 +21,9 @@ const MapDisplay = () => {
   // login stuff
   const [showAuthModal, setShowAuthModal] = React.useState(false);
   const [isSignUp, setIsSignUp] = React.useState(true);
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
+  const token = cookies.token;
 
   // Make request to backend here
   const getAllMarkers = async () => {
@@ -106,6 +110,8 @@ const MapDisplay = () => {
                   getAllMarkers();
                 }}
                 location={newEntryLocation}
+                setIsSignUp={setIsSignUp}
+                setShowAuthModal={setShowAuthModal}
               />
             </div>
           </Popup>
