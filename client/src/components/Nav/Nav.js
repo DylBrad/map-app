@@ -22,7 +22,7 @@ const Nav = (props) => {
   };
 
   return (
-    <nav>
+    <nav className="main-navigation">
       {authToken ? (
         <button className="primary-button" onClick={handleLogOut}>
           Sign Out
