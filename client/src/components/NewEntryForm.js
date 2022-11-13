@@ -3,11 +3,16 @@ import { useForm } from 'react-hook-form';
 import { createLogEntry } from '../API';
 import { useCookies } from 'react-cookie';
 
+import jwt_decode from 'jwt-decode';
+
 const NewEntryForm = (props) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState('');
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
   const token = cookies.token;
+
+  var decodedToken = jwt_decode(token);
 
   const { register, handleSubmit } = useForm();
 
@@ -16,6 +21,7 @@ const NewEntryForm = (props) => {
       setLoading(true);
       data.latitude = props.location.latitude;
       data.longitude = props.location.longitude;
+      data.authorId = decodedToken._id;
       const created = await createLogEntry(data);
       console.log(created);
       props.onClose();

@@ -21,9 +21,6 @@ const MapDisplay = () => {
   // login stuff
   const [showAuthModal, setShowAuthModal] = React.useState(false);
   const [isSignUp, setIsSignUp] = React.useState(true);
-  const [cookies, setCookie, removeCookie] = useCookies(['user']);
-
-  const token = cookies.token;
 
   // Make request to backend here
   const getAllMarkers = async () => {
