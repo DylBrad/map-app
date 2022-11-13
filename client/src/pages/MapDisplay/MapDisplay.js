@@ -1,14 +1,12 @@
 import * as React from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
-import { useCookies } from 'react-cookie';
 
 import { listLogEntries } from '../../API';
 
 import NewEntryForm from '../../components/NewEntryForm';
 import AuthModal from '../../components/AuthModal/AuthModal';
-import Nav from '../../components/Nav/Nav';
 
-const MapDisplay = () => {
+const MapDisplay = (props) => {
   const [logEntries, setLogEntries] = React.useState([]);
   const [popupInfo, setPopupInfo] = React.useState(null);
   const [newEntryLocation, setNewEntryLocation] = React.useState(null);
@@ -17,10 +15,6 @@ const MapDisplay = () => {
     latitude: 40.7128,
     zoom: 11,
   });
-
-  // login stuff
-  const [showAuthModal, setShowAuthModal] = React.useState(false);
-  const [isSignUp, setIsSignUp] = React.useState(true);
 
   // Make request to backend here
   const getAllMarkers = async () => {
@@ -48,13 +42,11 @@ const MapDisplay = () => {
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
       onClick={showAddMarkerPopup}
     >
-      <Nav setIsSignUp={setIsSignUp} setShowAuthModal={setShowAuthModal} />
-
-      {showAuthModal && (
+      {props.showAuthModal && (
         <AuthModal
-          setShowAuthModal={setShowAuthModal}
-          isSignUp={isSignUp}
-          setIsSignUp={setIsSignUp}
+          setShowAuthModal={props.setShowAuthModal}
+          isSignUp={props.isSignUp}
+          setIsSignUp={props.setIsSignUp}
         />
       )}
       {logEntries.map((entry) => {
@@ -107,8 +99,8 @@ const MapDisplay = () => {
                   getAllMarkers();
                 }}
                 location={newEntryLocation}
-                setIsSignUp={setIsSignUp}
-                setShowAuthModal={setShowAuthModal}
+                setIsSignUp={props.setIsSignUp}
+                setShowAuthModal={props.setShowAuthModal}
                 setNewEntryLocation={setNewEntryLocation}
               />
             </div>
