@@ -17,6 +17,9 @@ const logEntrySchema = new mongoose.Schema(
     },
     comments: String,
     image: String,
+    authorId: {
+      type: String,
+    },
     rating: {
       type: Number,
       min: 0,
@@ -32,10 +35,6 @@ const logEntrySchema = new mongoose.Schema(
       ...requiredNumber,
       min: -180,
       max: 180,
-    },
-    visitDate: {
-      required: true,
-      type: Date,
     },
   },
   {
