@@ -27,9 +27,9 @@ const NewEntryForm = (props) => {
   };
 
   const handleClick = () => {
-    document.getElementById('closeOnClick').style.display = 'none';
     props.setIsSignUp(false);
     props.setShowAuthModal(true);
+    props.setNewEntryLocation(null);
   };
 
   return (
@@ -55,7 +55,7 @@ const NewEntryForm = (props) => {
           </form>
         </>
       ) : (
-        <div id="closeOnClick">
+        <div>
           <h3>Please log in to create a post.</h3>
           <button onClick={handleClick}>Log In</button>
         </div>

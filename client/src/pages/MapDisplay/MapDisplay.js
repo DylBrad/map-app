@@ -112,6 +112,7 @@ const MapDisplay = () => {
                 location={newEntryLocation}
                 setIsSignUp={setIsSignUp}
                 setShowAuthModal={setShowAuthModal}
+                setNewEntryLocation={setNewEntryLocation}
               />
             </div>
           </Popup>
