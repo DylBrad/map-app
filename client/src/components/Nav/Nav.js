@@ -1,5 +1,9 @@
 import * as React from 'react';
 import { useCookies } from 'react-cookie';
+import { IconContext } from 'react-icons';
+import { GrMapLocation } from 'react-icons/gr';
+import { FaUserAlt } from 'react-icons/fa';
+import { CgFeed } from 'react-icons/cg';
 
 const Nav = (props) => {
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
@@ -24,11 +28,27 @@ const Nav = (props) => {
   return (
     <>
       <nav className="main-navigation">
-        <h2>Map-App</h2>
-        <ul>
-          <li>Home</li>
-          <li>Profile</li>
-        </ul>
+        <div className="nav-top-section">
+          <h1>Map-App</h1>
+          <ul>
+            <IconContext.Provider
+              value={{ className: 'react-icons', size: 24 }}
+            >
+              <li>
+                <GrMapLocation value={{ className: 'react-icons' }} />
+                <span>Home</span>
+              </li>
+              <li>
+                <CgFeed value={{ className: 'react-icons' }} />
+                <span>News Feed</span>
+              </li>
+              <li>
+                <FaUserAlt value={{ className: 'react-icons' }} />
+                <span>Profile</span>
+              </li>
+            </IconContext.Provider>
+          </ul>
+        </div>
         <section className="nav-btn-container">
           {authToken ? (
             <button className="primary-button" onClick={handleLogOut}>

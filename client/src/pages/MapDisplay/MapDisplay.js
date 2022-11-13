@@ -37,7 +37,7 @@ const MapDisplay = (props) => {
     <Map
       {...viewState}
       mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
-      style={{ width: '100vw', height: '100vh' }}
+      style={{ marginLeft: '250px', width: 'auto', height: '100vh' }}
       onMove={(evt) => setViewState(evt.viewState)}
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
       onClick={showAddMarkerPopup}
