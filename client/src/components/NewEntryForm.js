@@ -12,7 +12,10 @@ const NewEntryForm = (props) => {
 
   const token = cookies.token;
 
-  var decodedToken = jwt_decode(token);
+  let decodedToken = undefined;
+  if (token !== undefined) {
+    decodedToken = jwt_decode(token);
+  }
 
   const { register, handleSubmit } = useForm();
 
