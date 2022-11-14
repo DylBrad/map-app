@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import MapDisplay from './pages/MapDisplay/MapDisplay';
 import Profile from './pages/Profile/Profile';
+import NewsFeed from './pages/NewsFeed/NewsFeed';
 import Nav from './components/Nav/Nav';
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
               }
             />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/newsfeed" element={<NewsFeed />} />
           </Routes>
         </Nav>
       </BrowserRouter>
