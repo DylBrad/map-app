@@ -4,7 +4,6 @@ import Map, { Marker, Popup } from 'react-map-gl';
 import { listLogEntries } from '../../API';
 
 import NewEntryForm from '../../components/NewEntryForm';
-import AuthModal from '../../components/AuthModal/AuthModal';
 
 const MapDisplay = (props) => {
   const [logEntries, setLogEntries] = React.useState([]);
@@ -42,13 +41,6 @@ const MapDisplay = (props) => {
       mapStyle="mapbox://styles/dylbrad/cl9h7i0r900it14pi0yg2sacm"
       onClick={showAddMarkerPopup}
     >
-      {props.showAuthModal && (
-        <AuthModal
-          setShowAuthModal={props.setShowAuthModal}
-          isSignUp={props.isSignUp}
-          setIsSignUp={props.setIsSignUp}
-        />
-      )}
       {logEntries.map((entry) => {
         return (
           <div>

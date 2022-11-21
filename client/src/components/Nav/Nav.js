@@ -4,6 +4,7 @@ import { IconContext } from 'react-icons';
 import { GrMapLocation } from 'react-icons/gr';
 import { FaUserAlt } from 'react-icons/fa';
 import { CgFeed } from 'react-icons/cg';
+import AuthModal from '../../components/AuthModal/AuthModal';
 
 const Nav = (props) => {
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
@@ -67,6 +68,13 @@ const Nav = (props) => {
           )}
         </section>
       </nav>
+      {props.showAuthModal && (
+        <AuthModal
+          setShowAuthModal={props.setShowAuthModal}
+          isSignUp={props.isSignUp}
+          setIsSignUp={props.setIsSignUp}
+        />
+      )}
       {props.children}
     </>
   );

@@ -14,7 +14,12 @@ const App = () => {
   return (
     <>
       <BrowserRouter>
-        <Nav setIsSignUp={setIsSignUp} setShowAuthModal={setShowAuthModal}>
+        <Nav
+          isSignUp={isSignUp}
+          setIsSignUp={setIsSignUp}
+          showAuthModal={showAuthModal}
+          setShowAuthModal={setShowAuthModal}
+        >
           <Routes>
             <Route
               path="/"
