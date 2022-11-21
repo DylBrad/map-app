@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const { Schema } = mongoose;
+
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -7,6 +9,9 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     name: {
+      type: String,
+    },
+    bio: {
       type: String,
     },
     email: {
@@ -17,7 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    posts: Array,
+    posts: [{ type: Schema.Types.ObjectId, ref: 'UserPost' }],
   },
   {
     timestamps: true,
