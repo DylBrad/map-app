@@ -74,6 +74,10 @@ li {
   background-color: var(--primary-colour);
   overflow-x: hidden;
 }
+.main-navigation a {
+  color: white;
+  text-decoration: none;
+}
 .main-navigation .nav-top-section {
   margin-top: 40px;
 }
