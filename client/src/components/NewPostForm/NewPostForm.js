@@ -1,13 +1,24 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { createUserPost } from '../../API';
+import { useCookies } from 'react-cookie';
+
+import jwt_decode from 'jwt-decode';
 
 const NewPostForm = (props) => {
   const { register, handleSubmit } = useForm();
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
+  const token = cookies.token;
+
+  let decodedToken = undefined;
+  if (token !== undefined) {
+    decodedToken = jwt_decode(token);
+  }
 
   const onSubmit = async (data) => {
+    data.author = decodedToken._id;
     const posted = await createUserPost(data);
-    console.log(posted);
   };
 
   const handleClick = () => {
