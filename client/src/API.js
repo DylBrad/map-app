@@ -16,6 +16,17 @@ export async function createLogEntry(entry) {
   return response.json();
 }
 
+export async function createUserPost(post) {
+  const response = await fetch(`${API_URL}/api/posts`, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(post),
+  });
+  return response.json();
+}
+
 export async function createUser(user) {
   const response = await fetch(`${API_URL}/api/users`, {
     method: 'POST',

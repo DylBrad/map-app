@@ -8,6 +8,7 @@ require('dotenv').config();
 const logs = require('./api/logs');
 const users = require('./api/users');
 const login = require('./api/login');
+const posts = require('./api/posts');
 
 const app = express();
 
@@ -44,6 +45,9 @@ app.use('/api/users', users);
 
 // login routes
 app.use('/api/login', login);
+
+// posts
+app.use('/api/posts', posts);
 
 app.use(notFound);
 app.use(errorHandler);
