@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     posts: [{ type: Schema.Types.ObjectId, ref: 'UserPost' }],
+    logs: [{ type: Schema.Types.ObjectId, ref: 'LogEntry' }],
   },
   {
     timestamps: true,
