@@ -32,4 +32,14 @@ router.post('/', async (req, res, next) => {
   }
 });
 
+router.delete('/', async (req, res, next) => {
+  try {
+    const post = req.body;
+    const posts = await UserPost.findOneAndDelete(post);
+    res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;

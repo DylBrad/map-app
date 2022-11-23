@@ -1,5 +1,7 @@
 const API_URL = 'http://localhost:1337';
 
+// Map log entries
+
 export async function listLogEntries() {
   const response = await fetch(`${API_URL}/api/logs`);
   return response.json();
@@ -16,6 +18,8 @@ export async function createLogEntry(entry) {
   return response.json();
 }
 
+// User Posts
+
 export async function createUserPost(post) {
   const response = await fetch(`${API_URL}/api/posts`, {
     method: 'POST',
@@ -26,6 +30,27 @@ export async function createUserPost(post) {
   });
   return response.json();
 }
+
+export async function listPosts() {
+  const response = await fetch(`${API_URL}/api/posts`);
+  return response.json();
+}
+
+export async function deletePost(postId) {
+  console.log(postId);
+  const response = await fetch(`${API_URL}/api/posts`, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      _id: postId,
+    }),
+  });
+  return response.json();
+}
+
+// User creation / authentication
 
 export async function createUser(user) {
   const response = await fetch(`${API_URL}/api/users`, {
