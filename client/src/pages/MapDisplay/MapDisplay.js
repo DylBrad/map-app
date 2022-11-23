@@ -10,8 +10,8 @@ const MapDisplay = (props) => {
   const [popupInfo, setPopupInfo] = React.useState(null);
   const [newEntryLocation, setNewEntryLocation] = React.useState(null);
   const [viewState, setViewState] = React.useState({
-    longitude: -74.006,
-    latitude: 40.7128,
+    longitude: -6.2603,
+    latitude: 53.3498,
     zoom: 11,
   });
 

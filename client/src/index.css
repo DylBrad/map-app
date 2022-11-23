@@ -1,5 +1,6 @@
 :root {
   --primary-colour: #414040;
+  --light-grey: #b0b0b0;
 }
 
 body {
@@ -103,9 +104,41 @@ li {
   margin-left: 20px;
 }
 
-.react-icons path {
+.main-navigation .react-icons path {
   stroke: white;
 }
 .nav-child {
   margin-left: 260px;
+}
+
+/* Profile Page */
+.profile-container {
+  text-align: center;
+  text-align: -webkit-center;
+  margin-top: 40px;
+}
+.profile-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-pic {
+  margin-right: 50px;
+}
+.profile-bio {
+  text-align: left;
+}
+.button-container {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  margin: 40px auto;
+  cursor: pointer;
+}
+.button-container path {
+  stroke-width: 0.1;
+}
+.button-container span {
+  font-size: 0.8em;
+  color: var(--light-grey);
 }
