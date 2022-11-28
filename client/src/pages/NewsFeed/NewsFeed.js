@@ -1,4 +1,8 @@
 import * as React from 'react';
+
+import { IconContext } from 'react-icons';
+import { FaUserAlt } from 'react-icons/fa';
+
 import { listLogEntries } from '../../API';
 
 const NewsFeed = () => {
@@ -6,7 +10,7 @@ const NewsFeed = () => {
 
   const getAllPosts = async () => {
     const posts = await listLogEntries();
-    setPosts(posts);
+    setPosts(posts.reverse());
   };
 
   React.useEffect(() => {
@@ -14,14 +18,32 @@ const NewsFeed = () => {
   }, []);
 
   return (
-    <div className="nav-child">
+    <div className="nav-child newsfeed-container">
       {posts.map((post) => {
-        console.log(post);
         return (
-          <>
-            <div></div>
-            <h2>{post.title}</h2>
-          </>
+          <div className="newsfeed-post">
+            <div className="author-details">
+              <IconContext.Provider
+                value={{ className: 'react-icons', size: 24 }}
+              >
+                <div className="profile-pic">
+                  <FaUserAlt value={{ className: 'react-icons' }} />
+                </div>
+              </IconContext.Provider>
+              <div>
+                <h2>Author Name</h2>
+                <span>Location?</span>
+              </div>
+            </div>
+            <div
+              className="image-container"
+              style={{ backgroundImage: 'url(' + post.image + ')' }}
+            ></div>
+            <div className="post-details">
+              <h3>{post.title}</h3>
+              <p>{post.description}</p>
+            </div>
+          </div>
         );
       })}
     </div>

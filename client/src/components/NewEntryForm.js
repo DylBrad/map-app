@@ -48,9 +48,9 @@ const NewEntryForm = (props) => {
           <form onSubmit={handleSubmit(onSubmit)} className="entry-form">
             <label htmlFor="title">Title</label>
             <input {...register('title')} required />
-            <label htmlFor="comments">Comments</label>
+            <label htmlFor="description">Description</label>
             <textarea
-              {...register('comments')}
+              {...register('description')}
               rows={3}
               required
               placeholder="Please include a description of the services available here."

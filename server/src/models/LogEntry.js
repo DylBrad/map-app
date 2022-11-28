@@ -15,7 +15,7 @@ const logEntrySchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    comments: String,
+    comments: [],
     image: String,
     authorId: {
       type: String,
