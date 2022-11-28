@@ -1,7 +1,11 @@
 import * as React from 'react';
+import { useCookies } from 'react-cookie';
+
 import { IconContext } from 'react-icons';
 import { FaUserAlt } from 'react-icons/fa';
 import { GrAddCircle } from 'react-icons/gr';
+
+import jwt_decode from 'jwt-decode';
 
 import NewPostForm from '../../components/NewPostForm/NewPostForm';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';
@@ -11,6 +15,15 @@ import { listPosts } from '../../API';
 const Profile = () => {
   const [showNewPostForm, setShowNewPostForm] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
+  const [cookies, setCookie, removeCookie] = useCookies(['user']);
+
+  const token = cookies.token;
+
+  let decodedToken = undefined;
+  if (token !== undefined) {
+    decodedToken = jwt_decode(token);
+  }
+  console.log(decodedToken);
 
   const getUsersPosts = async () => {
     const posts = await listPosts();
@@ -33,8 +46,12 @@ const Profile = () => {
           </div>
         </IconContext.Provider>
         <div className="profile-bio">
-          <h2>User Name</h2>
-          <p>User Bio</p>
+          <h2>{decodedToken.username}</h2>
+          <p>
+            {decodedToken.bio
+              ? decodedToken.bio
+              : `Hello, I am ${decodedToken.username}! Lets connect!`}
+          </p>
         </div>
       </div>
 
@@ -48,11 +65,18 @@ const Profile = () => {
       <div className="profile-gallery">
         {posts.map((post) => {
           return (
-            <>
-              <h2>{post.description}</h2>
-
-              <DeleteButton postId={post._id} />
-            </>
+            <div className="image-box">
+              <div
+                className="grid-image"
+                style={{ backgroundImage: 'url(' + post.image + ')' }}
+              ></div>
+              <div className="overlay">
+                <div className="details">
+                  <h2>{post.description}</h2>
+                </div>
+                <DeleteButton postId={post._id} />
+              </div>
+            </div>
           );
         })}
       </div>

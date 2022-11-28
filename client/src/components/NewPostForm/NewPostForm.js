@@ -26,7 +26,7 @@ const NewPostForm = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className="newpost-form" onSubmit={handleSubmit(onSubmit)}>
       <div className="close-icon" onClick={handleClick}>
         ✖
       </div>

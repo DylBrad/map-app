@@ -16,7 +16,13 @@ const NewsFeed = () => {
   return (
     <div className="nav-child">
       {posts.map((post) => {
-        return <h2>{post.title}</h2>;
+        console.log(post);
+        return (
+          <>
+            <div></div>
+            <h2>{post.title}</h2>
+          </>
+        );
       })}
     </div>
   );
