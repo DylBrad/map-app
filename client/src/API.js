@@ -37,7 +37,6 @@ export async function listPosts() {
 }
 
 export async function deletePost(postId) {
-  console.log(postId);
   const response = await fetch(`${API_URL}/api/posts`, {
     method: 'DELETE',
     headers: {
@@ -72,5 +71,10 @@ export async function loginUser(user) {
     },
     body: JSON.stringify(user),
   });
+  return response.json();
+}
+
+export async function findOneUser(id) {
+  const response = await fetch(`${API_URL}/api/users/?_id=${id}`);
   return response.json();
 }

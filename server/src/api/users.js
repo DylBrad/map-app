@@ -9,7 +9,8 @@ const router = Router();
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.find();
+    const id = req.query._id;
+    const users = await User.findOne({ _id: id });
     res.json(users);
   } catch (error) {
     next(error);
