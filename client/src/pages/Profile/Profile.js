@@ -23,7 +23,6 @@ const Profile = () => {
   if (token !== undefined) {
     decodedToken = jwt_decode(token);
   }
-  console.log(decodedToken);
 
   const getUsersPosts = async () => {
     const posts = await listPosts();
@@ -37,14 +36,43 @@ const Profile = () => {
     setShowNewPostForm(true);
   };
 
+  const [showNewProfilePic, setShowNewProfilePic] = React.useState(false);
+  const showPicForm = () => {
+    setShowNewProfilePic(true);
+  };
+  const [file, setFile] = React.useState();
+  const onFileChange = (event) => {
+    // Updating the state
+    setFile({ file: event.target.files[0] });
+  };
+  const onFileUpload = async () => {
+    console.log('Upload file');
+    console.log('File:', file);
+  };
+
   return (
     <div className="nav-child profile-container">
       <div className="profile-info">
-        <IconContext.Provider value={{ className: 'react-icons', size: 54 }}>
-          <div className="profile-pic">
+        <div className="profile-pic">
+          <IconContext.Provider value={{ className: 'react-icons', size: 54 }}>
             <FaUserAlt value={{ className: 'react-icons' }} />
+          </IconContext.Provider>
+
+          <div onClick={showPicForm}>
+            <IconContext.Provider
+              value={{ className: 'react-icons', size: 14 }}
+            >
+              <GrAddCircle />
+            </IconContext.Provider>
           </div>
-        </IconContext.Provider>
+
+          {showNewProfilePic && (
+            <>
+              <input type="file" onChange={onFileChange} />
+              <button onClick={onFileUpload}>Upload</button>
+            </>
+          )}
+        </div>
         <div className="profile-bio">
           <h2>{decodedToken.username}</h2>
           <p>
