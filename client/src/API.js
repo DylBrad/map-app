@@ -74,6 +74,17 @@ export async function loginUser(user) {
   return response.json();
 }
 
+export async function updateUserProfilePic(id, data) {
+  const response = await fetch(`${API_URL}/api/users/?_id=${id}`, {
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  return response.json();
+}
+
 export async function findOneUser(id) {
   const response = await fetch(`${API_URL}/api/users/?_id=${id}`);
   return response.json();

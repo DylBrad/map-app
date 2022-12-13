@@ -17,6 +17,18 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.put('/', async (req, res, next) => {
+  try {
+    console.log(req.body);
+    const filter = req.query;
+    const updatePic = req.body;
+    const updatedUser = await User.findOneAndUpdate(filter, updatePic);
+    res.json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   try {
     const user = new User(req.body);
