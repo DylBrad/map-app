@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useCookies } from 'react-cookie';
+import { useForm } from 'react-hook-form';
 
 import { IconContext } from 'react-icons';
 import { FaUserAlt } from 'react-icons/fa';
@@ -10,7 +11,7 @@ import jwt_decode from 'jwt-decode';
 import NewPostForm from '../../components/NewPostForm/NewPostForm';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';
 
-import { listPosts } from '../../API';
+import { listPosts, updateUserProfilePic } from '../../API';
 
 const Profile = () => {
   const [showNewPostForm, setShowNewPostForm] = React.useState(false);
@@ -36,18 +37,21 @@ const Profile = () => {
     setShowNewPostForm(true);
   };
 
+  // stuff
   const [showNewProfilePic, setShowNewProfilePic] = React.useState(false);
+  const { register, handleSubmit } = useForm();
+
   const showPicForm = () => {
     setShowNewProfilePic(true);
   };
-  const [file, setFile] = React.useState();
-  const onFileChange = (event) => {
-    // Updating the state
-    setFile({ file: event.target.files[0] });
+  const handleCloseProfileForm = () => {
+    setShowNewProfilePic(null);
   };
-  const onFileUpload = async () => {
-    console.log('Upload file');
-    console.log('File:', file);
+  const onSubmit = async (data) => {
+    console.log(data);
+    const id = decodedToken._id;
+    console.log(id);
+    updateUserProfilePic(id, data);
   };
 
   return (
@@ -67,10 +71,14 @@ const Profile = () => {
           </div>
 
           {showNewProfilePic && (
-            <>
-              <input type="file" onChange={onFileChange} />
-              <button onClick={onFileUpload}>Upload</button>
-            </>
+            <form className="newpost-form" onSubmit={handleSubmit(onSubmit)}>
+              <div className="close-icon" onClick={handleCloseProfileForm}>
+                ✖
+              </div>
+              <label htmlFor="profile_pic">Image</label>
+              <input {...register('profile_pic')} />
+              <button>Upload</button>
+            </form>
           )}
         </div>
         <div className="profile-bio">
