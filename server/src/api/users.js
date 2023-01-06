@@ -29,6 +29,19 @@ router.put('/', async (req, res, next) => {
   }
 });
 
+router.put('/edit-profile', async (req, res, next) => {
+  try {
+    console.log('BODY: ', req.body);
+    console.log('QUERY: ', req.query);
+    // const filter = req.query;
+    // const updates = req.body;
+    // const updatedUser = await User.findOneAndUpdate(filter, updates);
+    res.json('Updating');
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   try {
     const user = new User(req.body);

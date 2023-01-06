@@ -82,7 +82,7 @@ export async function loginUser(user) {
   return response.json();
 }
 
-export async function updateUserProfilePic(id, data) {
+export async function updateUserProfile(id, data) {
   const response = await fetch(`${API_URL}/api/users/?_id=${id}`, {
     method: 'PUT',
     headers: {
