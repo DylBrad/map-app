@@ -12,14 +12,15 @@ import NewPostForm from '../../components/NewPostForm/NewPostForm';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';
 
 import {
-  listPosts,
   updateUserProfilePic,
   listCurrentUserPosts,
+  findOneUser,
 } from '../../API';
 
 const Profile = () => {
   const [showNewPostForm, setShowNewPostForm] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
+  const [profilePic, setProfilePic] = React.useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
 
   const token = cookies.token;
@@ -33,11 +34,19 @@ const Profile = () => {
     // const posts = await listPosts();
     const id = decodedToken._id;
     const posts = await listCurrentUserPosts(id);
-    console.log('POSTS: ', posts);
     setPosts(posts);
   };
+
+  const getUserProfilePic = async () => {
+    const id = decodedToken._id;
+    const user = await findOneUser(id);
+    const profilePicture = user.profile_pic;
+    setProfilePic(profilePicture);
+  };
+
   React.useEffect(() => {
     getUsersPosts();
+    getUserProfilePic();
   }, []);
 
   const handleClick = () => {
@@ -55,9 +64,7 @@ const Profile = () => {
     setShowNewProfilePic(null);
   };
   const onSubmit = async (data) => {
-    console.log(data);
     const id = decodedToken._id;
-    console.log(id);
     updateUserProfilePic(id, data);
   };
 
@@ -65,9 +72,17 @@ const Profile = () => {
     <div className="nav-child profile-container">
       <div className="profile-info">
         <div className="profile-pic">
-          <IconContext.Provider value={{ className: 'react-icons', size: 54 }}>
-            <FaUserAlt value={{ className: 'react-icons' }} />
-          </IconContext.Provider>
+          {profilePic ? (
+            <div className="profile-pic-container">
+              <img src={profilePic}></img>
+            </div>
+          ) : (
+            <IconContext.Provider
+              value={{ className: 'react-icons', size: 54 }}
+            >
+              <FaUserAlt value={{ className: 'react-icons' }} />
+            </IconContext.Provider>
+          )}
 
           <div onClick={showPicForm}>
             <IconContext.Provider
