@@ -13,12 +13,12 @@ const posts = require('./api/posts');
 const app = express();
 
 // connect mongoDB
-main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(process.env.DATABASE_URL, () => {
+  await mongoose.connect(process.env.URI, () => {
     console.log('We connected to mongoDb yo!');
   });
 }
+main().catch((err) => console.log(err));
 
 app.use(morgan('common'));
 app.use(helmet());
