@@ -14,7 +14,7 @@ const app = express();
 
 // connect mongoDB
 async function main() {
-  await mongoose.connect(process.env.URI, () => {
+  await mongoose.connect(process.env.MONGO_ATLAS_URI, () => {
     console.log('We connected to mongoDb yo!');
   });
 }
