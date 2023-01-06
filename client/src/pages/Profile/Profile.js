@@ -10,15 +10,17 @@ import jwt_decode from 'jwt-decode';
 
 import NewPostForm from '../../components/NewPostForm/NewPostForm';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';
+import EditProfileForm from '../../components/EditProfileForm/EditProfileForm';
 
 import {
-  updateUserProfilePic,
+  updateUserProfile,
   listCurrentUserPosts,
   findOneUser,
 } from '../../API';
 
 const Profile = () => {
   const [showNewPostForm, setShowNewPostForm] = React.useState(false);
+  const [showEditProfileForm, setShowEditProfileForm] = React.useState(false);
   const [posts, setPosts] = React.useState([]);
   const [profilePic, setProfilePic] = React.useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(['user']);
@@ -65,7 +67,12 @@ const Profile = () => {
   };
   const onSubmit = async (data) => {
     const id = decodedToken._id;
-    updateUserProfilePic(id, data);
+    updateUserProfile(id, data);
+  };
+
+  // edit profile form
+  const handleShowEditProfileForm = () => {
+    setShowEditProfileForm(true);
   };
 
   return (
@@ -110,6 +117,15 @@ const Profile = () => {
               ? decodedToken.bio
               : `Hello, I am ${decodedToken.username}! Lets connect!`}
           </p>
+          <div>
+            <button
+              className="edit-profile-btn"
+              onClick={handleShowEditProfileForm}
+            >
+              Edit Profile
+            </button>
+          </div>
+          {showEditProfileForm && <EditProfileForm />}
         </div>
       </div>
 
