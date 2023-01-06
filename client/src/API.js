@@ -31,8 +31,16 @@ export async function createUserPost(post) {
   return response.json();
 }
 
-export async function listPosts() {
+export async function listPosts(filter) {
   const response = await fetch(`${API_URL}/api/posts`);
+  return response.json();
+}
+
+// this
+export async function listCurrentUserPosts(id) {
+  const response = await fetch(
+    `${API_URL}/api/posts/current-users-posts/?_id=${id}`,
+  );
   return response.json();
 }
 

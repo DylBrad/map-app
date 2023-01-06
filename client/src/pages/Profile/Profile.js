@@ -11,7 +11,11 @@ import jwt_decode from 'jwt-decode';
 import NewPostForm from '../../components/NewPostForm/NewPostForm';
 import DeleteButton from '../../components/DeleteButton/DeleteButton';
 
-import { listPosts, updateUserProfilePic } from '../../API';
+import {
+  listPosts,
+  updateUserProfilePic,
+  listCurrentUserPosts,
+} from '../../API';
 
 const Profile = () => {
   const [showNewPostForm, setShowNewPostForm] = React.useState(false);
@@ -26,7 +30,10 @@ const Profile = () => {
   }
 
   const getUsersPosts = async () => {
-    const posts = await listPosts();
+    // const posts = await listPosts();
+    const id = decodedToken._id;
+    const posts = await listCurrentUserPosts(id);
+    console.log('POSTS: ', posts);
     setPosts(posts);
   };
   React.useEffect(() => {

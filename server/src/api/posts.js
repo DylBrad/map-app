@@ -14,6 +14,17 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.get('/current-users-posts', async (req, res, next) => {
+  try {
+    const id = req.query._id;
+    console.log('ID: ', id);
+    const posts = await UserPost.find({ author: id });
+    res.json(posts);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/', async (req, res, next) => {
   try {
     const userPost = new UserPost(req.body);
